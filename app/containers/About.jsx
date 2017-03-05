@@ -14,16 +14,10 @@ const About = () => {
     <div className={cx('about')}>
       <h1 className={cx('header')}>About this</h1>
       <div style = {{textAlign:'center'}} className={cx('description')}>
-        <p>Twenty something someone trying to do something, with nothing and everything.
-          <br/>
-          <br/>
-          Rules:<br/>
-          <span>1. Talk to a stranger</span><br/>
-          <span>2. One shot on a disposable camera</span><br/>
-          <span>3. One question that contains the word ''best''</span><br/>        
+        <p>This is a fantasy site and some info can come here    
         </p>
         <br/>
-        <p> bytheway my name is gudda loooovling</p>
+        <p> blabla</p>
       </div>
     </div>
   );

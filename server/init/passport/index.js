@@ -2,6 +2,7 @@
 import passport from 'passport';
 import local from './local';
 import google from './google';
+import yahoo from './yahoo';
 import { passport as dbPassport } from '../../db';
 import unsupportedMessage from '../../db/unsupportedMessage';
 
@@ -27,4 +28,6 @@ export default () => {
   // use the following strategies
   local(passport);
   google(passport);
+  yahoo(passport);
 };
+

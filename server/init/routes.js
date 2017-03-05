@@ -8,6 +8,7 @@ import { controllers, passport as passportConfig } from '../db';
 
 const usersController = controllers && controllers.users;
 const imagesController = controllers && controllers.images;
+const yahooController = controllers && controllers.yahoo;
 
 export default (app) => {
   // user routes
@@ -18,6 +19,7 @@ export default (app) => {
   } else {
     console.warn(unsupportedMessage('users routes'));
   }
+
 
   if (passportConfig && passportConfig.google) {
     // google auth
@@ -42,6 +44,22 @@ export default (app) => {
         failureRedirect: '/login'
       })
     );
+  }
+
+  if (passportConfig && passportConfig.yahoo) {
+    app.get('/auth/yahoo', passport.authenticate('oauth2', {
+    }));
+
+
+    app.get('/auth/yahoo/callback',
+      passport.authenticate('oauth2', {
+        successRedirect: '/',
+        failureRedirect: '/login'
+      }));
+  }
+
+  if (yahooController) {
+    app.get('/leagues', yahooController.getLeagues);
   }
 
   // image routes

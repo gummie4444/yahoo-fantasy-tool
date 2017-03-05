@@ -14,7 +14,7 @@ const Navigation = ({ user, logOut }) => {
         <Link
           to="/"
           className={cx('item', 'logo')}
-          activeClassName={cx('active')}>the best thing</Link>
+          activeClassName={cx('active')}>fantasy analyser gummar</Link>
           { user.authenticated &&
             <Link
              onClick={logOut}

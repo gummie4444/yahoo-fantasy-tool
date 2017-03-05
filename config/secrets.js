@@ -9,6 +9,12 @@ export const google = {
   callbackURL: process.env.GOOGLE_CALLBACK || '/auth/google/callback'
 };
 
+export const yahoo = {
+  clientID: process.env.YAHOO_CLIENTID || 'dj0yJmk9Y1NMUFlqSEtrT2ZTJmQ9WVdrOU9GbGhjRnBOTmpRbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD04Nw--',
+  clientSecret: process.env.YAHOO_SECRET || '42bddc20f5e3311b52b2cacc33b0a987aedff002',
+  callbackURL: process.env.YAHOO_CALLBACK || 'http://mywebsite.dev/auth/yahoo/callback',
+};
+
 export const AWS_SECRET_ACCESS_ID = process.env.AWS_SECRET_ACCESS_ID || 'this should be access id';
 export const AWS_SECRET_ACCESS_SECRET = process.env.AWS_SECRET_ACCESS_SECRET || 'this should be acces-secret';
 export const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME || 'photo-app-gudda';

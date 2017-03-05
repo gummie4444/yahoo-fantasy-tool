@@ -1,2 +1,2 @@
-export { default as imagesService } from './images';
+export { default as dataService } from './data';
 

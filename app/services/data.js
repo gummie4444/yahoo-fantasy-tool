@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const service = {
-  getImages: () => axios.get('/images')
+  getInitData: () => axios.get('/leagues')
 };
 
 export default service;

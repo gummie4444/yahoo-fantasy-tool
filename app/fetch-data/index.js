@@ -1,2 +1,2 @@
-export { default as fetchImagesData } from './fetchImagesData';
+export { default as fetchInitData } from './fetchInitData';
 

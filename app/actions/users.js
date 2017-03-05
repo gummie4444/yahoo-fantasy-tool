@@ -114,6 +114,7 @@ export function logOut() {
       .then(response => {
         if (response.status === 200) {
           dispatch(logoutSuccess());
+          dispatch(push('/login'));
         } else {
           dispatch(logoutError());
         }

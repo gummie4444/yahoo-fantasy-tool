@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Page from '../pages/Page';
-import MainContainer from '../containers/Main';
+import LoginContainer from '../containers/Login';
 
-class Main extends Component {
+class Login extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,12 +12,12 @@ class Main extends Component {
   }
 
   pageTitle() {
-    return 'guddusida';
+    return 'Login| reactGo';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'image page brother' }
+      { name: 'description', content: 'A reactGo example of a login or register page' }
     ];
   }
 
@@ -28,11 +28,10 @@ class Main extends Component {
   render() {
     return (
       <Page {...this.getMetaData()}>
-        <MainContainer {...this.props} />
+        <LoginContainer {...this.props} />
       </Page>
     );
   }
 }
 
-export default Main;
-
+export default Login;
