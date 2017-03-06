@@ -51,6 +51,7 @@ export default (app) => {
     }));
 
 
+
     app.get('/auth/yahoo/callback',
       passport.authenticate('oauth2', {
         successRedirect: '/',
@@ -60,6 +61,7 @@ export default (app) => {
 
   if (yahooController) {
     app.get('/leagues', yahooController.getLeagues);
+    app.get('/leagueData:leagueKey:statType:rangeType', yahooController.getTeamDataForLeagues);
   }
 
   // image routes

@@ -8,6 +8,4 @@ let yf = new YahooFantasy(
   yahoo.clientSecret
 );
 
-console.log(yf, "yahooFant");
-
 export default yf;
