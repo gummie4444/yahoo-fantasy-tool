@@ -1,7 +1,6 @@
-import { combineReducers } from 'redux';
 import * as types from '../types';
 
-const league = (
+const leagues = (
   state = [],
   action
 ) => {
@@ -15,4 +14,4 @@ const league = (
   }
 };
 
-export default league;
+export default leagues;
