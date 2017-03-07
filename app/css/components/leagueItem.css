@@ -1,0 +1,66 @@
+.leagueItemsWraper{
+  display:flex;
+  flex-direction: row;
+  width:100%;
+}
+.leagueItemWraper{
+  display:flex;
+  max-width:330px;
+  flex-direction: column;
+  margin:10px;
+  padding:15px;
+  border: solid 1px black;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  cursor:pointer;
+}
+
+.leagueItemWraper:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.leagueItemWraper:active{
+  box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.leagueItemHeader{
+  flex:1;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.leagueItemHeaderText{
+  flex:7;
+}
+.leageItemImageWraper{
+  flex:1;
+}
+.leagueItemImage{
+  max-height:60px;
+  max-width:60px;
+}
+
+.leagueItemTextWraper{
+  display:flex;
+  align-items: center;  
+  margin-left: 15px;
+  margin-right: 30px;
+}
+.leagueItemText{
+  flex:33.3%;
+  text-align:center;
+
+}
+.leagueItemText p{
+  margin:0;
+  margin-bottom:5px;
+}
+
+.leagueItemTextSubHeader{
+  font-size: 1.2em;
+  color:blue;
+}
+.leagueItemTextHeader{
+  font-size: 1em;
+}
