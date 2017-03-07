@@ -10,14 +10,15 @@ import styles from '../css/components/leagueItem.css';
 
 const cx = classNames.bind(styles);
 
-const MainDashboardSection = ({fantasyLeagues}) => {
+const MainDashboardSection = ({fantasyLeagues, pickLeague}) => {
   return (
-    <LeagueItems fantasyLeagues={fantasyLeagues}/>
+    <LeagueItems fantasyLeagues={fantasyLeagues} clickLeague={pickLeague}/>
   );
 };
 
 MainDashboardSection.propTypes = {
-  fantasyLeagues: PropTypes.object.isRequired
+  fantasyLeagues: PropTypes.object.isRequired,
+  pickLeague: PropTypes.func.isRequired
 
 };
 

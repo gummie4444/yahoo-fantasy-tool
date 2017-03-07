@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import MainDashboardSection from '../components/MainDashboardSection';
+import LeagueOverlaySection from '../components/LeagueOverlaySection';
 
 // import { somethings} from '../actions/images';
 //import styles from '../css/components/vote';
@@ -16,7 +16,7 @@ class Dashboard extends Component {
     const props = this.props;
     return (
       <div >
-        <MainDashboardSection
+        <LeagueOverlaySection
           fantasyLeagues={props.fantasyLeagues}
          />
       </div>
