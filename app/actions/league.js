@@ -67,23 +67,16 @@ export function pickCurrentLeagueSuccesfull(currentLeague) {
 
 
 function createDataForLeagueUrl(league, rangeType, statType) {
-  return '/leagueData/' + league.league_key + '/' + rangeType + '/' + statType;
+  return '/leagueData/' + league.league_key + '/' + statType + '/' + rangeType;
 }
 
 export function teamDataForLeague(league, rangeType = 'default', statType = 'default') {
   return dispatch => {
     const url = createDataForLeagueUrl(league, rangeType, statType);
 
-    const data = {
-      leagueKey: league.league_key,
-      rangeType,
-      statType
-    };
-
-    return makeLeagueRequest('get', data, '/leagueData')
-      .then(response => response.json())
-      .then(data => {
-        console.log('data', data);
+    return makeLeagueRequest('get', {}, url)
+      .then(res => {
+        console.log(res,'res');
       })
       .catch(err => {
         console.log('err', err);

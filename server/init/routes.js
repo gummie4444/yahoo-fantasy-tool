@@ -61,7 +61,7 @@ export default (app) => {
 
   if (yahooController) {
     app.get('/leagues', yahooController.getLeagues);
-    app.get('/leagueData', yahooController.getTeamDataForLeague);
+    app.get('/leagueData/:leagueKey/:statType/:rangeType', yahooController.getTeamDataForLeague);
   }
 
   // image routes
