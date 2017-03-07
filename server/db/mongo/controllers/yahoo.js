@@ -60,14 +60,14 @@ export function getTeamDataForLeague(req, res) {
   const statType = req.params.statType || yahooScraper.statEnum.default;
   const rangeType = req.params.rangeType || yahooScraper.rangeEnum.default;
 
-  getTeamsForLeague(leagueKey).then(teamsResult => {
+  return getTeamsForLeague(leagueKey).then(teamsResult => {
     const actions = teamsResult.teams.map(team => {
       return yahooScraper.scrapeTeam(team.url, statType, rangeType);
     });
 
     const results = Promise.all(actions);
 
-    results.then(playerData => {
+    return results.then(playerData => {
       playerData.map((playerDataPerTeam, index) => {
         teamsResult.teams[index].playerData = playerDataPerTeam;
       });
