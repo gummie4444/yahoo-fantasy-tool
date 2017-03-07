@@ -4,6 +4,7 @@ import user from '../reducers/user';
 import leagues from '../reducers/leagues';
 import currentLeague from '../reducers/currentLeague';
 import dashboardMode from '../reducers/dashboardMode';
+import actionMode from '../reducers/actionMode';
 import message from '../reducers/message';
 import * as types from '../types';
 
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   leagues,
   currentLeague,
   dashboardMode,
+  actionMode,
   user,
   message,
   routing

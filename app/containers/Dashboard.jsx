@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import PickLeagueSection from '../components/PickLeagueSection';
-import LeagueOverviewSection from '../components/LeagueOverviewSection';
-import {pickLeague} from '../actions/league';
+import PickLeagueSection from '../components/pickLeague/PickLeagueSection';
+import LeagueOverviewSection from '../components/leagueOverview/LeagueOverviewSection';
+import {pickLeague, leagueAction} from '../actions/league';
 
 // import { somethings} from '../actions/images';
 // import styles from '../css/components/vote';
@@ -20,7 +20,7 @@ class Dashboard extends Component {
 
     switch (this.props.dashboardMode) {
        case 'leagueOverview':
-        section = <LeagueOverviewSection currentLeague={this.props.currentLeague} />;
+        section = <LeagueOverviewSection currentLeague={this.props.currentLeague} leagueAction={this.props.leagueAction} actionMode={this.props.actionMode} />;
         break;
       case 'pickLeague':
         section = <PickLeagueSection fantasyLeagues={this.props.fantasyLeagues} pickLeague={this.props.pickLeague} />;
@@ -42,17 +42,20 @@ Dashboard.propTypes = {
   fantasyLeagues: PropTypes.array,
   dashboardMode: PropTypes.string,
   pickLeague: PropTypes.func,
-  currentLeague: PropTypes.object
+  currentLeague: PropTypes.object,
+  leagueAction: PropTypes.func,
+  actionMode: PropTypes.string
 };
 
 function mapStateToProps(state) {
   return {
     fantasyLeagues: state.leagues,
     dashboardMode: state.dashboardMode,
-    currentLeague: state.currentLeague
+    currentLeague: state.currentLeague,
+    actionMode: state.actionMode
   };
 }
 
 // Read more about where to place `connect` here:
 // https://github.com/rackt/react-redux/issues/75#issuecomment-135436563
-export default connect(mapStateToProps, {pickLeague})(Dashboard);
+export default connect(mapStateToProps, {pickLeague, leagueAction})(Dashboard);

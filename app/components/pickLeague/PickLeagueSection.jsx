@@ -5,14 +5,14 @@ import _ from 'lodash';
 
 import LeagueItems from './LeagueItems';
 
-import nbaImage from '../images/nba-logo-transparent-png-logo-download.png';
-import styles from '../css/components/leagueItem.css';
+import nbaImage from '../../images/nba-logo-transparent-png-logo-download.png';
+import styles from '../../css/components/leagueItem.css';
 
 const cx = classNames.bind(styles);
 
 const PickLeagueSection = ({fantasyLeagues, pickLeague}) => {
   return (
-    <LeagueItems fantasyLeagues={fantasyLeagues} clickLeague={pickLeague}/>
+    <LeagueItems fantasyLeagues={fantasyLeagues} clickLeague={pickLeague} />
   );
 };
 

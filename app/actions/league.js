@@ -12,7 +12,6 @@ function makeLeagueRequest(method, data, api = '/leagues') {
 
 
 // overviews
-
 export function leagueOverviewMode() {
     return {
     type: types.CHANGE_DASHBOARD_MODE,
@@ -27,28 +26,61 @@ export function pickLeagueMode() {
   };
 }
 
+// league actions
+export function leagueActionSuccesfull(action) {
+  return {
+    type: types.CHANGE_LEAGUE_ACTION,
+    mode: action
+  };
+}
+
+export function home() {
+  return {
+    type: types.GO_HOME
+  };
+}
+
+export function leagueAction(action) {
+  return dispatch => {
+    /* switch (action) {
+      case 'compareTeams':
+        dispatch(getCompareTeamsData());
+        break;
+      case 'tableAnalytics':
+        dispatch(getTableAnalyticsData());
+        break;
+      default:
+        console.log('bla');
+        break;
+    }*/
+
+    dispatch(leagueActionSuccesfull(action));
+  };
+}
+
 export function pickCurrentLeagueSuccesfull(currentLeague) {
   return {
     type: types.PICK_CURRENTLEAGUE_SUCCESFULL,
     currentLeague
   };
 }
-export function pickLeague(currentLeague) {
-  console.log('pickLeague',currentLeague);
-  return dispatch => {
-    dispatch(leagueOverviewMode());
-    dispatch(pickCurrentLeagueSuccesfull(currentLeague));
-  };
-}
+
 
 function createDataForLeagueUrl(league, rangeType, statType) {
-  return 'leagueData/' + league.league_key + '/' + rangeType + '/' + statType;
+  return '/leagueData/' + league.league_key + '/' + rangeType + '/' + statType;
 }
 
 export function teamDataForLeague(league, rangeType = 'default', statType = 'default') {
   return dispatch => {
     const url = createDataForLeagueUrl(league, rangeType, statType);
-    return makeLeagueRequest('get', league.league_key, url)
+
+    const data = {
+      leagueKey: league.league_key,
+      rangeType,
+      statType
+    };
+
+    return makeLeagueRequest('get', data, '/leagueData')
       .then(response => response.json())
       .then(data => {
         console.log('data', data);
@@ -56,5 +88,14 @@ export function teamDataForLeague(league, rangeType = 'default', statType = 'def
       .catch(err => {
         console.log('err', err);
       });
+  };
+}
+
+
+export function pickLeague(currentLeague) {
+  return dispatch => {
+    dispatch(teamDataForLeague(currentLeague));
+    dispatch(pickCurrentLeagueSuccesfull(currentLeague));
+    dispatch(leagueOverviewMode());
   };
 }

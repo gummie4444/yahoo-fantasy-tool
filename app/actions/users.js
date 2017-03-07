@@ -18,12 +18,12 @@ export function beginLogin() {
   return { type: types.MANUAL_LOGIN_USER };
 }
 
-export function loginSuccess(message) {
-  return {
-    type: types.LOGIN_SUCCESS_USER,
-    message
-  };
-}
+  export function loginSuccess(message) {
+    return {
+      type: types.LOGIN_SUCCESS_USER,
+      message
+    };
+  }
 
 export function loginError(message) {
   return {

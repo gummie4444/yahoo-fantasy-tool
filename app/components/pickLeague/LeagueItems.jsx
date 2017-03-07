@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import _ from 'lodash';
 
-import nbaImage from '../images/nba-logo-transparent-png-logo-download.png';
-import styles from '../css/components/leagueItem.css';
+import nbaImage from '../../images/nba-logo-transparent-png-logo-download.png';
+import styles from '../../css/components/leagueItem.css';
 
 
 const cx = classNames.bind(styles);

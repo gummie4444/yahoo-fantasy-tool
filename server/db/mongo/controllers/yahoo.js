@@ -56,10 +56,11 @@ function getTeamsForLeague(league_key) {
 
 export function getTeamDataForLeague(req, res) {
   // get all the info from request
-  const leagueKey = req.params.leagueKey;
-  const statType = req.params.statType || yahooScraper.statEnum.default;
-  const rangeType = req.params.rangeType || yahooScraper.rangeEnum.default;
+  const leagueKey = req.body.leagueKey;
+  const statType = req.body.statType || yahooScraper.statEnum.default;
+  const rangeType = req.body.rangeType || yahooScraper.rangeEnum.default;
 
+  console.log(leagueKey,statType,rangeType,"stuff");
   return getTeamsForLeague(leagueKey).then(teamsResult => {
     const actions = teamsResult.teams.map(team => {
       return yahooScraper.scrapeTeam(team.url, statType, rangeType);
