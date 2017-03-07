@@ -2,6 +2,8 @@ import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
 import user from '../reducers/user';
 import leagues from '../reducers/leagues';
+import currentLeague from '../reducers/currentLeague';
+import dashboardMode from '../reducers/dashboardMode';
 import message from '../reducers/message';
 import * as types from '../types';
 
@@ -22,6 +24,8 @@ const isFetching = (state = false, action) => {
 const rootReducer = combineReducers({
   isFetching,
   leagues,
+  currentLeague,
+  dashboardMode,
   user,
   message,
   routing

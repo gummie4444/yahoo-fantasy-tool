@@ -15,7 +15,7 @@ const LeagueItems = ({fantasyLeagues, clickLeague}) => {
     <div className={cx('leagueItemsWraper')}>
       {fantasyLeagues && fantasyLeagues !== 'error' && fantasyLeagues.map(league => {
         return (
-          <div onClick={clickLeague(league)} className={cx('leagueItemWraper')}>
+          <div key={league.league_key} onClick={clickLeague.bind(this, league)} className={cx('leagueItemWraper')}>
             <div className={cx('leagueItemHeader')}>
               <h1 className={cx('leagueItemHeaderText')}>{league.name}</h1>
               <div className={cx('leagueItemImageWraper')}>
@@ -44,7 +44,7 @@ const LeagueItems = ({fantasyLeagues, clickLeague}) => {
 };
 
 LeagueItems.propTypes = {
-  fantasyLeagues: PropTypes.object.isRequired,
+  fantasyLeagues: PropTypes.array.isRequired,
   clickLeague: PropTypes.func.isRequired
 
 };
