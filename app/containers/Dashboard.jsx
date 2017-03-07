@@ -17,7 +17,7 @@ class Dashboard extends Component {
     return (
       <div >
         <MainDashboardSection
-          fantasyData={props.fantasyData}
+          fantasyLeagues={props.fantasyLeagues}
          />
       </div>
     );
@@ -25,12 +25,12 @@ class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-  fantasyData: PropTypes.object
+  fantasyLeagues: PropTypes.object
 };
 
 function mapStateToProps(state) {
   return {
-    fantasyData: state.league
+    fantasyLeagues: state.leagues
   };
 }
 
