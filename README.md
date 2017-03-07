@@ -1,58 +1,85 @@
-# image-gallery
+# Fantasy-tool
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-> Your One-Stop solution for a full-stack app with ES6/ES2015 React.js featuring universal Redux, React Router, React Router Redux Hot reloading, CSS modules, Express 4.x, (forked from reactGo)
-#### Demo site: [**https://godda-photo.herokuapp.com/**](https://gudda-photo.herokuapp.com/)
-
-## Features:
-- ~~isomorphic~~ [**universal**](https://medium.com/@ghengeveld/isomorphism-vs-universal-javascript-4b47fb481beb#.4x2t3jlmx) Rendering
-- [**Redux**](https://github.com/reactjs/redux) Predictive state containers.
-- Server-side rendering with [**React Router**](https://github.com/reactjs/react-router) 2.x. Having server-side rendering allows you to pre-render the initial state of your components when a user (or search engine crawler) requests a page.
-- Integrating Redux with React Router with ~~Redux Simple Router~~ [React Router Redux](https://github.com/reactjs/react-router-redux)
-- Asynchronous Data Fetching on server-side rendering
-- Server side authentication + Redirecting for components
-- Hot reloading using [**react-transform-hmr**](https://github.com/gaearon/react-transform-hmr)
-- Time travel using [**Redux-Devtools Chrome Extension**](https://github.com/zalmoxisus/redux-devtools-extension)
-- [**Webpack 2**](https://github.com/webpack/webpack) for both development and production bundles. It's (in my opinion) the best bundler for JS, CSS, LESS, images, and lots more!
-- [**CSS Modules**](https://github.com/css-modules/css-modules) allows for modular and reusable CSS. Say goodbye to conflicts (most of them) and global scope
-
-- **Unit Testing** with webpack, karma, jsdom, mocha, sinon & enzyme
-	- Reducers
-	- Components ([Enzyme](http://airbnb.io/enzyme))
-	- Synchronous and Asynchronous Actions
-
-- Express 4.x server with a ton of middleware
-- Mongoose for MongoDB
-- Sequelize for Postgres
-- Procfile to enable deployment to Heroku & Docs on Salt configurations + Deployment for Digital Ocean
-
-#### Data Flow
-
-A simplistic representation of data flow from server to client is:
-
-```
-Express app.use() receives a request
--> Calls a pre-built webpack file for the server
--> Runs matching of routes in react-router for server
--> Makes async data fetching request
--> Renders Route component to string
--> Construct HTML file (with Meta, Link tags using helmet)
--> Browser receives html file with initial state
--> Client side React.JS kicks in and initializes with given state
--> Continues where it left off
--> Everyone is happy :)
-```
+> fantasy helper for yahoo h2h 
+#### Demo site: [**tbd**](tbd)
 
 #### Redux DevTools
 
 You will have to install redux devtools extension from [here](https://github.com/zalmoxisus/redux-devtools-extension) and then everything should just work!
-
 ## Instructions
 
 #### Database
 
-We currently support MongoDB and Postgres, as well as the ability to not use any database. [Learn](docs/databases.md) about how to configure your app.
+###### MongoDB
+
+You will need to have mongoDB installed and running on your computer to make this work locally
+
+```bash
+# create the db folder
+mkdir db
+
+# Run the database
+mongod --dbpath=./db
+```
+#### Proxying localhost:3000 to custom url (needed for yahoo authentication)
+For `mac`:
+
+Install `nginx`:
+```bash
+brew install nginx
+```
+
+Configure `nginx` to reroute to a custom url:
+```bash
+# Run test once
+sudo nano /usr/local/etc/nginx/nginx.conf
+```
+
+Find the server section and change the configuration to this
+```
+server {
+   listen       80;
+   ...
+   location / {
+       proxy_pass http://127.0.0.1:****(your port(this example uses 3000));
+   }
+   ...
+}
+```
+
+Configure your host file to reroute `localhost/127.0.0.1` to a custom url:
+```
+sudo nano /etc/hosts
+```
+
+Add the entry for example `mywebsite.dev`:
+```
+127.0.0.1 mywebsite.dev (used for this example)
+```
+
+Run `nginx` and run the server:
+```
+sudo nginx 
+```
+Now you need to insert the custom url you used on `yahoo.developer` in the callback URL!!!! #winning
+
+#### Running
+Remember you have to have nginx and mongoDb running so it works!!
+
+```bash
+# Run in production
+npm start
+
+# Run in development
+npm run dev
+```
+#### Editor
+
+I recommend using visual studio code!
+
+I have a simular setup to this [one](http://equimper.github.io/2017/02/25/why-i-moved-away-from-atom-to-visual-studio-code-and-my-setup/)
 
 #### Unit Tests
 
@@ -70,12 +97,6 @@ npm test
 # Run in watch mode
 npm test:watch
 ```
-
-We have unit tests for async (redux) actions, reducers, and stateless components with [enzyme](http://airbnb.io/enzyme).
-
-#### Deployment
-
-Currently we support [Heroku](docs/deployment/Heroku.md) and [Digital Ocean](docs/deployment/DigitalOcean.md) and [AWS](docs/deployment/AWS.md)
 
 License
 ===============
