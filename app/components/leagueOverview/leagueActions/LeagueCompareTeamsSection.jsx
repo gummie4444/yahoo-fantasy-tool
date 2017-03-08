@@ -1,7 +1,12 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import _ from 'lodash';
-import Dropdown from 'react-dropdown';
+import CompareTeamsHeaderTeam from './CompareTeamsSection/CompareTeamsHeaderTeam';
+import CompareTeamsHeaderScore from './CompareTeamsSection/CompareTeamsHeaderScore';
+import CompareTeamsCompareStatsCategories from './CompareTeamsSection/CompareTeamsCompareStatsCategories';
+import CompareTeamsCompareStatsTeam from './CompareTeamsSection/CompareTeamsCompareStatsTeam';
+import CompareTeamsMainCategories from './CompareTeamsSection/CompareTeamsMainCategories';
+import CompareTeamsMainPlayer from './CompareTeamsSection/CompareTeamsMainPlayer';
 
 import leagueUtilService from '../../../services/leagueUtilService';
 import styles from '../../../css/components/leagueCompareTeams.css';
@@ -102,97 +107,21 @@ class LeagueCompareTeamsSection extends React.Component {
               // {currentLeague.teams[0].name}
               // {currentLeague.teams[0].team_logo[0].url}
               // {currentLeague.teams[0].managers[0].nickname}
-    const pre = ['position', 'name', 'fgm', 'fga', 'fg%', 'ftm', 'fta', 'ft%', '3pm', 'pts', 'reb', 'ast', 'stl', 'blo', 'to'];
-    const preCat = ['fg%', 'ft%', '3pm', 'pts', 'reb', 'ass', 'stl', 'blo', 'to'];
-
     return (
       <div className={cx('compareTeamsWrapper')}>
         {currentLeague && currentLeague.teams && this.state.loadInitData &&
         <div>
           <div className={cx('compareTeamsHeaderWraper')}>
-            <div className={cx('compareTeamsHeaderLeftTeam')}>
-              <Dropdown style={{zIndex:'10000'}} options={this.state.dropDownOptions} onChange={this.onSelectLeftDropDown.bind(this)} value={this.state.dropDownOptions[this.state.teamLeftIndex]} placeholder="Select an option" />
-
-            </div>
-            <div className={cx('compareTeamsHeaderScore')}>
-              {this.state.teamLeftPoints + ' - ' + this.state.teamRightPoints}
-            </div>
-            <div className={cx('compareTeamsHeaderRightTeam')}>
-              <Dropdown style={{zIndex:'10000'}} options={this.state.dropDownOptions} onChange={this.onSelectRightDropDown.bind(this)} value={this.state.dropDownOptions[this.state.teamRightIndex]} placeholder="Select an option" />
-            </div>
+            <CompareTeamsHeaderTeam customClassName={cx('compareTeamsHeaderLeftTeam')} options={this.state.dropDownOptions} change={this.onSelectLeftDropDown.bind(this)} initValue={this.state.dropDownOptions[this.state.teamLeftIndex]} />
+            <CompareTeamsHeaderScore customClassName={cx('compareTeamsHeaderScore')} leftPoints={this.state.teamLeftPoints} rightPoints={this.state.teamRightPoints} />
+            <CompareTeamsHeaderTeam customClassName={cx('compareTeamsHeaderRightTeam')} options={this.state.dropDownOptions} change={this.onSelectRightDropDown.bind(this)} initValue={this.state.dropDownOptions[this.state.teamRightIndex]} />
           </div>
           <div className={cx('compareTeamsCompareStatsWraper')}>
             <table>
               <tbody>
-
-                <tr className={cx('compareTeamsCompareStatsCategories')}>
-                  {preCat.map(item => {
-                    return (
-                      <td key={item}>
-                        {item}
-                      </td>
-                    );
-                  })
-                  }
-                </tr>
-                <tr className={cx('compareTeamsCompareStatsLeftTeam')}>
-                  <td>
-                    {this.state.sumDataTeamLeft['fg%']}
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamLeft['ft%'] }
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamLeft['3pm']}
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamLeft.pts}
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamLeft.reb}
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamLeft.ass}
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamLeft.stl}
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamLeft.blo}
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamLeft.to}
-                  </td>
-                </tr>
-                <tr className={cx('compareTeamsCompareStatsRightTeam')}>
-                  <td>
-                    {this.state.sumDataTeamRight['fg%']}
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamRight['ft%'] }
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamRight['3pm']}
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamRight.pts}
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamRight.reb}
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamRight.ass}
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamRight.stl}
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamRight.blo}
-                  </td>
-                  <td>
-                    {this.state.sumDataTeamRight.to}
-                  </td>
-                </tr>
+                <CompareTeamsCompareStatsCategories customClassName={cx('compareTeamsCompareStatsCategories')} />
+                <CompareTeamsCompareStatsTeam team={this.state.sumDataTeamLeft} customClassName={cx('compareTeamsCompareStatsLeftTeam')} />
+                <CompareTeamsCompareStatsTeam team={this.state.sumDataTeamRight} customClassName={cx('compareTeamsCompareStatsRightTeam')} />
               </tbody>
             </table>
           </div>
@@ -200,134 +129,22 @@ class LeagueCompareTeamsSection extends React.Component {
             <div className={cx('compareTeamsMainTeamStats')}>
               <table>
                 <tbody>
-                  <tr className={cx('compareTeamsMainTeamStatsCategories')}>
-                    {pre.map(item => {
-                      return (
-                        <td key={item}>
-                          {item}
-                        </td>
-                      );
-                    })}
-                  </tr>
+                  <CompareTeamsMainCategories customClassName={cx('compareTeamsMainTeamStatsCategories')} />
                   {currentLeague.teams[this.state.teamLeftIndex].data_AS_AS_2016.map(player => {
-                  return (
-                    <tr>
-                      <td>
-                        {player.position}
-                      </td>
-                      <td>
-                        {player.name}
-                      </td>
-                      <td>
-                        {player.fgm}
-                      </td>
-                      <td>
-                        {player.fga}
-                      </td>
-                      <td>
-                        {parseFloat(player.fgm / player.fga).toFixed(2)}
-                      </td>
-                      <td>
-                        {player.ftm}
-                      </td>
-                      <td>
-                        {player.fta}
-                      </td>
-                      <td>
-                        {parseFloat(player.ftm / player.fta).toFixed(2)}
-                      </td>
-                      <td>
-                        {player['3pm']}
-                      </td>
-                      <td>
-                        {player.pts}
-                      </td>
-                      <td>
-                        {player.reb}
-                      </td>
-                      <td>
-                        {player.ass}
-                      </td>
-                      <td>
-                        {player.stl}
-                      </td>
-                      <td>
-                        {player.blo}
-                      </td>
-                      <td>
-                        {player.to}
-                      </td>
-                    </tr>
-                  );
-                })
-              }
+                    return (<CompareTeamsMainPlayer player={player} />);
+                  })}
                 </tbody>
 
               </table>
             </div>
             <div className={cx('compareTeamsMainTeamStats')}>
               <table>
-                <tr className={cx('compareTeamsMainTeamStatsCategories')}>
-                  {pre.map(item => {
-                    return (
-                      <td key={item}>
-                        {item}
-                      </td>
-                    );
+                <tbody>
+                  <CompareTeamsMainCategories customClassName={cx('compareTeamsMainTeamStatsCategories')} />
+                  {currentLeague.teams[this.state.teamRightIndex].data_AS_AS_2016.map(player => {
+                    return (<CompareTeamsMainPlayer player={player} />);
                   })}
-                </tr>
-                {currentLeague.teams[this.state.teamRightIndex].data_AS_AS_2016.map(player => {
-                  return (
-                    <tr>
-                      <td>
-                        {player.position}
-                      </td>
-                      <td>
-                        {player.name}
-                      </td>
-                      <td>
-                        {player.fgm}
-                      </td>
-                      <td>
-                        {player.fga}
-                      </td>
-                      <td>
-                        {parseFloat(player.fgm / player.fga).toFixed(2)}
-                      </td>
-                      <td>
-                        {player.ftm}
-                      </td>
-                      <td>
-                        {player.fta}
-                      </td>
-                      <td>
-                        {parseFloat(player.ftm / player.fta).toFixed(2)}
-                      </td>
-                      <td>
-                        {player['3pm']}
-                      </td>
-                      <td>
-                        {player.pts}
-                      </td>
-                      <td>
-                        {player.reb}
-                      </td>
-                      <td>
-                        {player.ass}
-                      </td>
-                      <td>
-                        {player.stl}
-                      </td>
-                      <td>
-                        {player.blo}
-                      </td>
-                      <td>
-                        {player.to}
-                      </td>
-                    </tr>
-                  );
-                })
-              }
+                </tbody>
               </table>
             </div>
           </div>
