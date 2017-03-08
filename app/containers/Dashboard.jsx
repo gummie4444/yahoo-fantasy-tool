@@ -44,7 +44,7 @@ Dashboard.propTypes = {
   pickLeague: PropTypes.func,
   currentLeague: PropTypes.object,
   leagueAction: PropTypes.func,
-  actionMode: PropTypes.string
+  actionMode: PropTypes.string,
 };
 
 function mapStateToProps(state) {

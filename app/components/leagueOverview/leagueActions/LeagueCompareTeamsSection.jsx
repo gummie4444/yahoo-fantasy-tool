@@ -21,3 +21,4 @@ LeagueOverviewSection.propTypes = {
 };
 
 export default LeagueOverviewSection;
+

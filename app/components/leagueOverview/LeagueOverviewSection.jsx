@@ -38,7 +38,7 @@ const LeagueOverviewSection = ({currentLeague, leagueAction, actionMode}) => {
 LeagueOverviewSection.propTypes = {
   currentLeague: PropTypes.object.isRequired,
   leagueAction: PropTypes.func.isRequired,
-  actionMode: PropTypes.string.isRequired
+  actionMode: PropTypes.string.isRequired,
 };
 
 export default LeagueOverviewSection;

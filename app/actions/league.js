@@ -76,7 +76,7 @@ export function teamDataForLeague(league, rangeType = 'default', statType = 'def
 
     return makeLeagueRequest('get', {}, url)
       .then(res => {
-        console.log(res,'res');
+        console.log(res.data, 'res');
       })
       .catch(err => {
         console.log('err', err);
@@ -86,7 +86,7 @@ export function teamDataForLeague(league, rangeType = 'default', statType = 'def
 
 
 export function pickLeague(currentLeague) {
-  return dispatch => {
+  return dispatch => {
     dispatch(teamDataForLeague(currentLeague));
     dispatch(pickCurrentLeagueSuccesfull(currentLeague));
     dispatch(leagueOverviewMode());
