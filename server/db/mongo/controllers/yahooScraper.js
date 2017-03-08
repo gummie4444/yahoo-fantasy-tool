@@ -39,6 +39,9 @@ export function scrapeTeam(url, statType, range) {
       request.get(url + scrapeUrl, {
       auth: {
         bearer: accessKey
+      },
+      headers: {
+         'User-agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:2.0.1) Gecko/20110506 Firefox/4.0.1'
       }
     }, (err, response, html) => {
       console.log(err, 'err');

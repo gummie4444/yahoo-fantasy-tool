@@ -1,0 +1,48 @@
+.compareTeamsWrapper{
+  display:flex;
+  flex-direction: column;
+}
+
+.compareTeamsHeaderWraper{
+  flex:1;
+  height:60px;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border:solid black 1px;
+}
+
+.compareTeamsHeaderLeftTeam,.compareTeamsHeaderRightTeam{
+  flex:33%;
+}
+
+.compareTeamsHeaderScore{
+  flex:33%;
+}
+
+
+.compareTeamsMainWraper{
+  display:flex;
+  flex:1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border:solid black 1px;
+
+}
+
+.compareTeamsMainTeamStats{
+  flex:50%;
+  border:solid black 1px;
+
+}
+
+.compareTeamsCompareStatsWraper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
