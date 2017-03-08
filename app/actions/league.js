@@ -70,15 +70,24 @@ function createDataForLeagueUrl(league, rangeType, statType) {
   return '/leagueData/' + league.league_key + '/' + statType + '/' + rangeType;
 }
 
+export function teamDataForLeagueSuccesfull(teamData) {
+  return {
+    type: types.TEAM_DATA_FOR_LEAGUE_SUCCESFULL,
+    teamData
+  };
+}
+
 export function teamDataForLeague(league, rangeType = 'default', statType = 'default') {
   return dispatch => {
     const url = createDataForLeagueUrl(league, rangeType, statType);
-
+    // dispatch(startTeamDataForLeague());
     return makeLeagueRequest('get', {}, url)
       .then(res => {
         console.log(res.data, 'res');
+        dispatch(teamDataForLeagueSuccesfull(res.data));
       })
       .catch(err => {
+        // dispatch(teamDataForLeagueError(res.data));
         console.log('err', err);
       });
   };
