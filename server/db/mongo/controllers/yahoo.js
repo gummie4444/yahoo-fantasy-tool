@@ -60,6 +60,8 @@ export function getTeamDataForLeague(req, res) {
   const statType = req.params.statType || yahooScraper.statEnum.default;
   const rangeType = req.params.rangeType || yahooScraper.rangeEnum.default;
 
+  // TODO: think about getting all stattype and rangetype data into one request so you will not have to do more requests
+
   return getTeamsForLeague(leagueKey).then(teamsResult => {
     const actions = teamsResult.teams.map(team => {
       return yahooScraper.scrapeTeam(team.url, statType, rangeType);
@@ -69,9 +71,10 @@ export function getTeamDataForLeague(req, res) {
 
     return results.then(playerData => {
       playerData.map((playerDataPerTeam, index) => {
-        teamsResult.teams[index].playerData = playerDataPerTeam;
+        teamsResult.teams[index]['data_' + yahooScraper.statEnum[statType] + '_' + yahooScraper.rangeEnum[rangeType]] = playerDataPerTeam;
       });
 
+      //todo: should we only return teamsResult.team or the whole and replace the thingy
       return res.json(teamsResult);
     });
   }).catch(err => {
