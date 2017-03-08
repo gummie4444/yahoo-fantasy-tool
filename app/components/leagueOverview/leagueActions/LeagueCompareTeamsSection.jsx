@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import _ from 'lodash';
+import Dropdown from 'react-dropdown';
 
 import leagueUtilService from '../../../services/leagueUtilService';
 import styles from '../../../css/components/leagueCompareTeams.css';
@@ -19,7 +20,8 @@ class LeagueCompareTeamsSection extends React.Component {
       sumDataTeamLeft: {},
       sumDataTeamRight: {},
       teamLeftPoints: 0,
-      teamRightPoints: 0
+      teamRightPoints: 0,
+      dropDownOptions: {}
     };
   }
 
@@ -40,8 +42,23 @@ class LeagueCompareTeamsSection extends React.Component {
     const teamLeftIndex = leagueUtilService.findLeagueOwnerTeamIndex(teams);
     const teamRightIndex = teamLeftIndex + 1 !== numberTeams ? teamLeftIndex + 1 : teamLeftIndex - 1;
 
-    const sumDataTeamLeft = leagueUtilService.sumAverageData(teams[teamLeftIndex].data_AS_AS_2016);
-    const sumDataTeamRight = leagueUtilService.sumAverageData(teams[teamRightIndex].data_AS_AS_2016);
+    const dropDownOptions = teams.map((team, index) => {
+      return {
+        value: index,
+        label: team.name
+      };
+     });
+     this.setState({
+       dropDownOptions
+     });
+
+    this.updateData(teamLeftIndex, teamRightIndex, teams);
+  }
+
+  updateData(teamLeftIndex, teamRightIndex, teams = false) {
+    const currentTeams = teams !== false ? teams : this.props.currentLeague.teams;
+    const sumDataTeamLeft = leagueUtilService.sumAverageData(currentTeams[teamLeftIndex].data_AS_AS_2016);
+    const sumDataTeamRight = leagueUtilService.sumAverageData(currentTeams[teamRightIndex].data_AS_AS_2016);
 
     let teamLeftPoints = 0;
     let teamRightPoints = 0;
@@ -71,9 +88,16 @@ class LeagueCompareTeamsSection extends React.Component {
       teamRightPoints
     });
   }
+  onSelectRightDropDown(item) {
+    this.updateData(this.state.teamLeftIndex, item.value);
+  }
+
+  onSelectLeftDropDown(item) {
+    this.updateData(item.value, this.state.teamRightIndex);
+  }
 
   render() {
-    //todo move to components
+    // todo move to components
     const currentLeague = this.props.currentLeague;
               // {currentLeague.teams[0].name}
               // {currentLeague.teams[0].team_logo[0].url}
@@ -87,13 +111,14 @@ class LeagueCompareTeamsSection extends React.Component {
         <div>
           <div className={cx('compareTeamsHeaderWraper')}>
             <div className={cx('compareTeamsHeaderLeftTeam')}>
-              {currentLeague.teams[this.state.teamLeftIndex].name}
+              <Dropdown style={{zIndex:'10000'}} options={this.state.dropDownOptions} onChange={this.onSelectLeftDropDown.bind(this)} value={this.state.dropDownOptions[this.state.teamLeftIndex]} placeholder="Select an option" />
+
             </div>
             <div className={cx('compareTeamsHeaderScore')}>
               {this.state.teamLeftPoints + ' - ' + this.state.teamRightPoints}
             </div>
             <div className={cx('compareTeamsHeaderRightTeam')}>
-              {currentLeague.teams[this.state.teamRightIndex].name}
+              <Dropdown style={{zIndex:'10000'}} options={this.state.dropDownOptions} onChange={this.onSelectRightDropDown.bind(this)} value={this.state.dropDownOptions[this.state.teamRightIndex]} placeholder="Select an option" />
             </div>
           </div>
           <div className={cx('compareTeamsCompareStatsWraper')}>
@@ -184,7 +209,7 @@ class LeagueCompareTeamsSection extends React.Component {
                       );
                     })}
                   </tr>
-                {currentLeague.teams[this.state.teamLeftIndex].data_AS_AS_2016.map(player => {
+                  {currentLeague.teams[this.state.teamLeftIndex].data_AS_AS_2016.map(player => {
                   return (
                     <tr>
                       <td>
@@ -236,7 +261,7 @@ class LeagueCompareTeamsSection extends React.Component {
                   );
                 })
               }
-               </tbody>
+                </tbody>
 
               </table>
             </div>
