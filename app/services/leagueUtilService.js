@@ -32,9 +32,19 @@ const findLeagueOwnerTeamIndex = (teams) => {
   return index > -1 ? index : 'error';
 };
 
+const rangeEnum = {
+  current: 'AS_2016',
+  y2015: 'AS_2015',
+  last30: 'AL30',
+  last14: 'AL14',
+  last7: 'AL7',
+  default: 'AS_2016'
+};
+
 const leagueUtilService = {
   sumAverageData,
-  findLeagueOwnerTeamIndex
+  findLeagueOwnerTeamIndex,
+  rangeEnum
 };
 
 export default leagueUtilService;

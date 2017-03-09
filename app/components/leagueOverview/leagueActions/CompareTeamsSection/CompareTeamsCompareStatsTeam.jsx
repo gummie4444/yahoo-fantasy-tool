@@ -7,9 +7,12 @@ import styles from '../../../../css/components/leagueOverview.css';
 
 const cx = classNames.bind(styles);
 
-const CompareTeamsCompareStatsTeam = ({team, customClassName}) => {
+const CompareTeamsCompareStatsTeam = ({team, customClassName, teamName}) => {
   return (
     <tr className={customClassName}>
+      <td>
+        {teamName}
+      </td>
       <td>
         {team['fg%']}
       </td>
@@ -43,6 +46,7 @@ const CompareTeamsCompareStatsTeam = ({team, customClassName}) => {
 
 CompareTeamsCompareStatsTeam.propTypes = {
   team: PropTypes.object.isRequired,
+  teamName: PropTypes.string.isRequired,
   customClassName: PropTypes.string.isRequired
 };
 

@@ -8,7 +8,7 @@ import styles from '../../../../css/components/leagueOverview.css';
 const cx = classNames.bind(styles);
 
 const CompareTeamsCompareStatsCategories = ({customClassName}) => {
-      const preCat = ['fg%', 'ft%', '3pm', 'pts', 'reb', 'ass', 'stl', 'blo', 'to'];
+      const preCat = ['team', 'fg%', 'ft%', '3pm', 'pts', 'reb', 'ass', 'stl', 'blo', 'to'];
 
   return (
     <tr className={customClassName}>

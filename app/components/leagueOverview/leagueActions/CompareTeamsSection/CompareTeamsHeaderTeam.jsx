@@ -10,9 +10,10 @@ import styles from '../../../../css/components/leagueOverview.css';
 const cx = classNames.bind(styles);
 
 const CompareTeamsHeaderTeam = ({options, change, initValue, customClassName}) => {
+  console.log(initValue,'value');
   return (
     <div className={customClassName}>
-      <Dropdown style={{zIndex:'10000'}} options={options} onChange={change} value={initValue} placeholder="Select an option" />
+      <Dropdown style={{zIndex:'10000'}} options={options} onChange={change} value={initValue} />
     </div>
   );
 };
