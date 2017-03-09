@@ -66,28 +66,66 @@ export function pickCurrentLeagueSuccesfull(currentLeague) {
 }
 
 
-function createDataForLeagueUrl(league, rangeType, statType) {
-  return '/leagueData/' + league.league_key + '/' + statType + '/' + rangeType;
+function createInitDataForLeagueUrl(league, rangeType, statType) {
+  return '/leagueInitData/' + league.league_key + '/' + statType + '/' + rangeType;
 }
 
-export function teamDataForLeagueSuccesfull(teamData) {
+export function teamInitDataForLeagueSuccesfull(teamData) {
   return {
-    type: types.TEAM_DATA_FOR_LEAGUE_SUCCESFULL,
+    type: types.TEAM_INIT_DATA_FOR_LEAGUE_SUCCESFULL,
     teamData
+  };
+}
+
+export function newTeamDataRange(rangeType) {
+  return {
+    type: types.NEW_RANGE_TYPE,
+    rangeType
   };
 }
 
 export function teamDataForLeague(league, rangeType = 'default', statType = 'default') {
   return dispatch => {
-    const url = createDataForLeagueUrl(league, rangeType, statType);
+    const url = createInitDataForLeagueUrl(league, rangeType, statType);
     //dispatch(startTeamDataForLeague());
     return makeLeagueRequest('get', {}, url)
       .then(res => {
-        dispatch(teamDataForLeagueSuccesfull(res.data));
+        dispatch(teamInitDataForLeagueSuccesfull(res.data));
+        dispatch(newTeamDataRange(rangeType));
       })
       .catch(err => {
         //dispatch(teamDataForLeagueError(res.data));
         console.log('err', err);
+      });
+  };
+}
+
+export function teamExtraDataForLeagueSuccesfull(extraTeamData) {
+  return {
+    type: types.TEAM_EXTRA_DATA_FOR_LEAGUE_SUCCESFULL,
+    extraTeamData
+  };
+}
+
+function createExtraDataForLeagueUrl(league, rangeType) {
+  return '/leagueExtraData/' + league.league_key + '/' + rangeType;
+}
+
+export function extraTeamDataForLeague(league, rangeType = 'default', statType = 'default') {
+  console.log('extraTeamDataForLeague');
+  return dispatch => {
+    const url = createExtraDataForLeagueUrl(league, rangeType, statType);
+    //dispatch(startTeamDataForLeague());
+    return makeLeagueRequest('get', {}, url)
+      .then(res => {
+        dispatch(newTeamDataRange(rangeType));
+        return dispatch(teamExtraDataForLeagueSuccesfull(res.data));
+        
+      })
+      .catch(err => {
+        //dispatch(teamDataForLeagueError(res.data));
+        console.log('err', err);
+        return;
       });
   };
 }

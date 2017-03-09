@@ -6,16 +6,18 @@ import LeagueOverviewActions from './LeagueOverviewActions';
 import LeagueCompareTeamsSection from './leagueActions/LeagueCompareTeamsSection';
 import LeagueTableAnalyticsSection from './leagueActions/LeagueTableAnalyticsSection';
 
+import backButton from '../../images/back.svg';
+
 import styles from '../../css/components/leagueOverview.css';
 
 const cx = classNames.bind(styles);
 
-const LeagueOverviewSection = ({currentLeague, leagueAction, actionMode}) => {
+const LeagueOverviewSection = ({currentLeague, leagueAction, actionMode, rangeType, extraTeamDataForLeague}) => {
   let action = null;
 
   switch (actionMode) {
     case 'compareTeams':
-      action = <LeagueCompareTeamsSection currentLeague={currentLeague} />;
+      action = <LeagueCompareTeamsSection currentLeague={currentLeague} rangeType={rangeType} extraTeamDataForLeague={extraTeamDataForLeague} />;
       break;
     case 'tableAnalytics':
       action = <LeagueTableAnalyticsSection currentLeague={currentLeague} />;
@@ -30,6 +32,11 @@ const LeagueOverviewSection = ({currentLeague, leagueAction, actionMode}) => {
 
   return (
     <div>
+      {actionMode !== '' &&
+        <div className={cx('leagueOverviewBackButtonWrapper')}>
+          <img className={cx('leagueOverviewBackButton')} onClick={leagueAction.bind(this, '')} src={backButton} />
+        </div>
+      }
       {action}
     </div>
   );
@@ -38,7 +45,9 @@ const LeagueOverviewSection = ({currentLeague, leagueAction, actionMode}) => {
 LeagueOverviewSection.propTypes = {
   currentLeague: PropTypes.object.isRequired,
   leagueAction: PropTypes.func.isRequired,
-  actionMode: PropTypes.string.isRequired
+  actionMode: PropTypes.string.isRequired,
+  rangeType: PropTypes.array.isRequired,
+  extraTeamDataForLeague: PropTypes.func.isRequired
 };
 
 export default LeagueOverviewSection;

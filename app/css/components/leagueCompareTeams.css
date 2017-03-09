@@ -15,13 +15,42 @@
 }
 
 .compareTeamsHeaderLeftTeam,.compareTeamsHeaderRightTeam{
+  cursor:pointer;
+  z-index:10000;
   flex:33%;
+}
+.compareTeamsLoading{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .compareTeamsHeaderScore{
   flex:33%;
 }
+.compareTeamsButtons{
+  flex:1;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+      display: flex;
+}
 
+.compareTeamsButtonsButton{
+  margin:10px;
+  cursor:pointer;
+  border:solid black 1px;
+}
+
+.compareTeamsButtonsButton[data-mode='true']{
+  background:gray;
+}
+
+.compareTeamsButtonsButton span{
+  padding:5px;
+
+}
 
 .compareTeamsMainWraper{
   display:flex;

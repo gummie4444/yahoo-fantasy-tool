@@ -33,7 +33,6 @@ export function scrapeTeam(url, statType, range) {
 
   const scrapeUrl = createScrapeUrl(statType, range);
 
-  console.log('start scrape', url + scrapeUrl);
  const accessKey = yf.yahooUserToken || '';
    return new Promise((resolve, reject) => {
       request.get(url + scrapeUrl, {
@@ -43,14 +42,13 @@ export function scrapeTeam(url, statType, range) {
       headers: {
          'User-agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:2.0.1) Gecko/20110506 Firefox/4.0.1'
       }
-    }, (err, response, html) => {
-      console.log(err, 'err');
+    }, (err, response, html) => {    
       if (err) {
-         reject(err);
+        console.log(err, 'err');
+        return reject(err);
       }
       const $ = cheerio.load(html);
       const playerStats = [];
-      console.log('scraping teaam');
       $('tbody tr').each((i, element) => {
         const playerStat = {
           position: '',

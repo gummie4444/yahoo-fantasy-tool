@@ -54,7 +54,7 @@ function getTeamsForLeague(league_key) {
   });
 }
 
-export function getTeamDataForLeague(req, res) {
+export function getInitTeamDataForLeague(req, res) {
   // get all the info from request
   const leagueKey = req.params.leagueKey;
   const statType = req.params.statType || yahooScraper.statEnum.default;
@@ -71,11 +71,39 @@ export function getTeamDataForLeague(req, res) {
 
     return results.then(playerData => {
       playerData.map((playerDataPerTeam, index) => {
-        teamsResult.teams[index]['data_' + yahooScraper.statEnum[statType] + '_' + yahooScraper.rangeEnum[rangeType]] = playerDataPerTeam;
+        teamsResult.teams[index][yahooScraper.rangeEnum[rangeType]] = playerDataPerTeam;
       });
 
       //todo: should we only return teamsResult.team or the whole and replace the thingy
       return res.json(teamsResult);
+    });
+  }).catch(err => {
+    return res.json(err);
+  });
+}
+
+export function getExtraTeamDataForLeague(req, res) {
+  // get all the info from request
+  const leagueKey = req.params.leagueKey;
+  const statType = 'default';
+  const rangeType = req.params.rangeType || yahooScraper.rangeEnum.default;
+
+  // TODO: think about getting all stattype and rangetype data into one request so you will not have to do more requests
+
+  return getTeamsForLeague(leagueKey).then(teamsResult => {
+    const actions = teamsResult.teams.map(team => {
+      return yahooScraper.scrapeTeam(team.url, statType, rangeType);
+    });
+
+    const results = Promise.all(actions);
+    const returnResult = [];
+    return results.then(playerData => {
+      playerData.map((playerDataPerTeam, index) => {
+        returnResult.push(playerDataPerTeam);
+      });
+
+      //todo: should we only return teamsResult.team or the whole and replace the thingy
+      return res.json({type: yahooScraper.rangeEnum[rangeType], data: returnResult });
     });
   }).catch(err => {
     return res.json(err);
@@ -101,5 +129,6 @@ export function getTeamDataForLeague(req, res) {
 
 export default {
   getLeagues,
-  getTeamDataForLeague
+  getInitTeamDataForLeague,
+  getExtraTeamDataForLeague
 };
