@@ -120,10 +120,9 @@ export function extraTeamDataForLeague(league, rangeType = 'default', statType =
       .then(res => {
         dispatch(newTeamDataRange(rangeType));
         return dispatch(teamExtraDataForLeagueSuccesfull(res.data));
-        
       })
       .catch(err => {
-        //dispatch(teamDataForLeagueError(res.data));
+        // dispatch(teamDataForLeagueError(res.data));
         console.log('err', err);
         return;
       });
@@ -132,7 +131,7 @@ export function extraTeamDataForLeague(league, rangeType = 'default', statType =
 
 
 export function pickLeague(currentLeague) {
-  return dispatch => {
+  return dispatch => {
     dispatch(teamDataForLeague(currentLeague));
     dispatch(pickCurrentLeagueSuccesfull(currentLeague));
     dispatch(leagueOverviewMode());
