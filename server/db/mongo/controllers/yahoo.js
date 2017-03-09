@@ -88,8 +88,6 @@ export function getExtraTeamDataForLeague(req, res) {
   const statType = 'default';
   const rangeType = req.params.rangeType || yahooScraper.rangeEnum.default;
 
-  console.log(req.params,'params');
-
   // TODO: think about getting all stattype and rangetype data into one request so you will not have to do more requests
 
   return getTeamsForLeague(leagueKey).then(teamsResult => {
@@ -103,8 +101,7 @@ export function getExtraTeamDataForLeague(req, res) {
       playerData.map((playerDataPerTeam, index) => {
         returnResult.push(playerDataPerTeam);
       });
-      console.log(returnResult,'result');
-      console.log(yahooScraper.rangeEnum[rangeType], 'type');
+
       //todo: should we only return teamsResult.team or the whole and replace the thingy
       return res.json({type: yahooScraper.rangeEnum[rangeType], data: returnResult });
     });
