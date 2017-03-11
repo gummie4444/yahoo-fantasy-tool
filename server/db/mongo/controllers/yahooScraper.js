@@ -1,7 +1,5 @@
 import request from 'request';
 import cheerio from 'cheerio';
-import yf from '../../../init/yahooFantasy';
-
 
 export const statEnum = {
   totalStat: 'S',
@@ -29,7 +27,7 @@ export function createScrapeUrl(statType, range) {
   return url;
 }
 
-export function scrapeTeam(url, statType, range) {
+export function scrapeTeam(url, statType, range, yf) {
 
   const scrapeUrl = createScrapeUrl(statType, range);
 
