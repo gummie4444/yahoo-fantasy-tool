@@ -1,0 +1,169 @@
+.Analytics-Container {
+    background: rgb(67,75,85);
+    min-height: 101vh;
+}
+
+.Analytics-Header {
+    height: 50vh;
+    text-align: center;
+    background-image: url('http://i.imgur.com/UzQe9hF.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center bottom; 
+    overflow-y: hidden;
+}
+
+.Analytics-HeaderOverlay {
+    position: relative;
+    top: 0;
+    left: 0;
+    background: rgba(50,56,63,0.8);
+    height: 100%;
+
+    line-height: 65vh;
+    font-size: 250%;
+    color: white;
+
+    animation: header-fadein 0.8s ease;
+}
+
+.Analytics-Separator {
+    height: 1.3vh;
+    background: rgb(242,201,54);
+}
+
+.Analytics-Menu {
+    position: relative;
+    bottom: 10vh;
+    height: 10vh;
+    background:rgba(75,82,90,0.2);
+
+    animation: slide-up 1.5s ease;
+}
+
+.Analytics-TableContainer {
+    margin: 0 6vw 0 6vw;
+}
+
+.Analytics-Table {
+    
+}
+
+.Analytics-TableItem {
+    display: flex;
+    align-items: center;
+    text-align: right center;
+    height: 5.5vh;
+    background:rgb(50,56,63);
+    border-bottom: 1px solid rgb(75,82,90);
+
+    animation: fadein 0.5s ease;
+}
+
+.Analytics-TableItem:hover {
+    background: rgb(55,61,68);
+}
+
+.Analytics-TeamLogoContainer {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    margin-left: 1vw;
+    width: 5%;
+}
+
+.Analytics-TeamLogoContainer img {
+    max-height: 50%;
+    width: auto;
+}
+
+.Analytics-TableItemName {
+    width: 25%;
+    height: 100%;
+    line-height: 5.5vh;
+    margin-left: 0.5vw;
+    border-right: 1px solid rgb(75,82,90);
+    color: rgb(97,192,149);
+}
+
+.Analytics-TableItemStats {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    height: 100%;
+    color: white;
+    line-height: 5.5vh;
+}
+
+.Analytics-TableStat {
+    width: 11.11111%;
+    height: 100%;
+    text-align: center;
+}
+
+.Analytics-TableHeader {
+    display: flex;
+    justify-content: space-between;
+    height: 5.5vh;
+    background: rgb(50,56,63);
+    line-height: 5.5vh;
+    color: white;
+    border-bottom: 1px solid rgb(85,93,101);
+}
+
+.Analytics-TableHeaderName {
+    margin-left: 1vw;
+    width: 30%;
+    height: 100%;
+}
+
+.Analytics-TableHeaderStat {
+    width: 7.777777%;
+    height: 100%;
+    text-align: center;
+    color: rgb(97,192,149);
+    cursor: pointer;
+}
+
+.Analytics-TableHeaderStat:hover {
+    background: rgba(242,201,54,0.4);
+}
+
+.Spinner {
+    border: 16px solid rgb(50,56,63);
+    border-top: 16px solid rgba(242,201,54,0.2);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    margin-top: 10vh;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes header-fadein {
+    0% {line-height: 60vh; opacity: 0;}
+    100% {line-height: 65vh; opacity: 1;}
+}
+
+@keyframes fadein {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes zoom-out {
+    0% {transform: scale(1.05);}
+    100% {transform: scale(1.0);}
+}
+
+@keyframes slide-up {
+    0% {transform: translateY(10vh);}
+    66.7% {transform: translateY(10vh);}
+    100% {transform: translateY(0vh);}
+}
+
+

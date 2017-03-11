@@ -4,7 +4,7 @@ import { List } from 'material-ui/List';
 import _ from 'lodash';
 import LeagueOverviewActions from './LeagueOverviewActions';
 import LeagueCompareTeamsSection from './leagueActions/LeagueCompareTeamsSection';
-import LeagueTableAnalyticsSection from './leagueActions/LeagueTableAnalyticsSection';
+import AnalyticsContainer from '../../containers/AnalyticsContainer';
 
 import backButton from '../../images/back.svg';
 
@@ -20,7 +20,7 @@ const LeagueOverviewSection = ({currentLeague, leagueAction, actionMode, rangeTy
       action = <LeagueCompareTeamsSection currentLeague={currentLeague} rangeType={rangeType} extraTeamDataForLeague={extraTeamDataForLeague} />;
       break;
     case 'tableAnalytics':
-      action = <LeagueTableAnalyticsSection currentLeague={currentLeague} />;
+      action = <AnalyticsContainer currentLeague={currentLeague} />;
       break;
     case '':
       action = <LeagueOverviewActions leagueAction={leagueAction} currentLeague={currentLeague} />;
