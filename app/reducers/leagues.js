@@ -6,8 +6,8 @@ const leagues = (
 ) => {
   // This is maby dumb to use this like this
   switch (action.type) {
-    case types.REQUEST_SUCCESS:
-      if (action.data) return action.data;
+    case types.FETCH_FANTASY_LEAGUE_SUCCESS:
+      if (action.leagues) return action.leagues;
       return state;
     default:
       return state;

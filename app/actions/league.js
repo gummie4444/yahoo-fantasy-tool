@@ -58,6 +58,24 @@ export function leagueAction(action) {
   };
 }
 
+export function fetchFantasyLeaguesSuccess(leagues) {
+  return {
+    type: types.FETCH_FANTASY_LEAGUE_SUCCESS,
+    leagues
+  };
+}
+export function fetchFantasyLeagues() {
+  return dispatch => {
+    return makeLeagueRequest('get', {}, '/leagues')
+      .then(res => {
+        return dispatch(fetchFantasyLeaguesSuccess(res.data));
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
+  };
+}
+
 export function pickCurrentLeagueSuccesfull(currentLeague) {
   return {
     type: types.PICK_CURRENTLEAGUE_SUCCESFULL,
@@ -87,14 +105,14 @@ export function newTeamDataRange(rangeType) {
 export function teamDataForLeague(league, rangeType = 'default', statType = 'default') {
   return dispatch => {
     const url = createInitDataForLeagueUrl(league, rangeType, statType);
-    //dispatch(startTeamDataForLeague());
+    // dispatch(startTeamDataForLeague());
     return makeLeagueRequest('get', {}, url)
       .then(res => {
         dispatch(teamInitDataForLeagueSuccesfull(res.data));
         dispatch(newTeamDataRange(rangeType));
       })
       .catch(err => {
-        //dispatch(teamDataForLeagueError(res.data));
+        // dispatch(teamDataForLeagueError(res.data));
         console.log('err', err);
       });
   };
@@ -115,7 +133,7 @@ export function extraTeamDataForLeague(league, rangeType = 'default', statType =
   console.log('extraTeamDataForLeague');
   return dispatch => {
     const url = createExtraDataForLeagueUrl(league, rangeType, statType);
-    //dispatch(startTeamDataForLeague());
+    // dispatch(startTeamDataForLeague());
     return makeLeagueRequest('get', {}, url)
       .then(res => {
         dispatch(newTeamDataRange(rangeType));
