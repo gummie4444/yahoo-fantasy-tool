@@ -16,7 +16,7 @@ const Navigation = ({ user, logOut, home}) => {
           to="/"
           onClick={home}
           className={cx('item', 'logo')}
-          activeClassName={cx('active')}>fantasy analyser gummar</Link>
+          activeClassName={cx('active')}>NBA Fantasy tool</Link>
           { user.authenticated &&
             <Link
              onClick={logOut}

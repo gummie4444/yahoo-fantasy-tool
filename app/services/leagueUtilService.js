@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 const formatNumber = (number) => {
-  return Number(number).toFixed(2);
+  return Number(number).toFixed(1);
 };
 
 const removeUnnecicarySumData = (sumData) => {
