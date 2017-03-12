@@ -1,5 +1,6 @@
 import passport from 'passport';
 import User from '../models/user';
+import {removeFromObject} from '../yfObject';
 
 /**
  * POST /login
@@ -27,6 +28,9 @@ export function login(req, res, next) {
  */
 export function logout(req, res) {
   // Do email and password validation for the server
+  if (req.user && req.user.email) {
+    removeFromObject(req.user.email);
+  }
   req.logout();
   res.redirect('/');
 }

@@ -20,7 +20,6 @@ import { yahoo } from '../../../../config/secrets';
 function getOrCreateYf(user) {
   console.log('getOrCreate');
   const temp = yfObject[user.email];
-  console.log(yfObject, 'obj');
   if (temp === undefined) {
       const yf = new YahooFantasy(
       yahoo.clientID,
@@ -36,7 +35,6 @@ function getOrCreateYf(user) {
 // TODO REFACTOR THIS INTO MULTIPLE CUSTOMIZABLE FUNCTIONS
 export function getLeagues(req, res) {
     console.log('getLeagues');
-    console.log(req.user, 'user');
     let yf;
     if (req.user) {
       yf = getOrCreateYf(req.user);

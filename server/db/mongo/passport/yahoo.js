@@ -8,8 +8,10 @@ export default (req, accessToken, refreshToken, params, profile, done) => {
   // TODO: kannski medhondla req.user dotid
   return User.findOne({yahoo: params.xoauth_yahoo_guid }, (findByYahooIdErr, existingUser) => {
     if (existingUser) {
+      existingUser.accessToken = accessToken;
+      existingUser.refreshToken = refreshToken;
       return existingUser.save(() => {
-        console.log('skila existingUser')
+        console.log('skila existingUser')         
         return done(null, existingUser);
       });
     }

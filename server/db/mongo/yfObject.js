@@ -1,3 +1,7 @@
-let yfOjbect = {};
+let yfObject = {};
 
-export default yfOjbect;
+export function removeFromObject(id) {
+  delete yfObject[id];
+}
+
+export default yfObject;
