@@ -32,6 +32,12 @@ const Navigation = ({ user, logOut, home, leagueAction, actionMode}) => {
             }
 
           <Link to="/about" className={cx('item')} activeClassName={cx('active')}>About</Link>
+
+          {user.profile && user.profile !== {} && <div className={cx('itemUser')}>
+            <img className={cx('itemUserImage')} src={user.profile.picture} />
+            <span className={cx('itemUserText')}>{user.profile.name}</span>
+          </div>
+          }
         </nav>
       </Headroom>
     );

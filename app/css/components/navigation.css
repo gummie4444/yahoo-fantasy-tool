@@ -21,6 +21,21 @@
   color: rgba(0,0,0,1);
 }
 
+.itemUser{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0vw 4vh;
+  color: rgba(0,0,0,0.7);
+  position: absolute;
+  top: 1vh;
+  right: 0;
+}
+.itemUserImage{
+  height:4vh;
+  padding-right:10px;
+}
+
 .logo {
   
 }
