@@ -10,13 +10,11 @@ import styles from '../../../../css/components/leagueOverview.css';
 const cx = classNames.bind(styles);
 
 const CompareTeamsMainPlayer = ({player}) => {
+  let playerNameSplit = player.name.split(' ');
   return (
     <tr>
       <td>
-        {player.position}
-      </td>
-      <td>
-        {player.name}
+        {playerNameSplit[0][0] + '.' + playerNameSplit[1]}
       </td>
       <td>
         {player.fgm}
