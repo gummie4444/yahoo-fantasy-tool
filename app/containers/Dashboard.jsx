@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import PickLeagueSection from '../components/pickLeague/PickLeagueSection';
 import LeagueOverviewSection from '../components/leagueOverview/LeagueOverviewSection';
-import {pickLeague, leagueAction, extraTeamDataForLeague, fetchFantasyLeagues} from '../actions/league';
+import {pickLeague, leagueAction, changeRangeType, fetchFantasyLeagues} from '../actions/league';
 
 // import { somethings} from '../actions/images';
 // import styles from '../css/components/vote';
@@ -26,7 +26,7 @@ class Dashboard extends Component {
 
     switch (this.props.dashboardMode) {
        case 'leagueOverview':
-        section = <LeagueOverviewSection currentLeague={this.props.currentLeague} leagueAction={this.props.leagueAction} actionMode={this.props.actionMode} rangeType={this.props.rangeType} extraTeamDataForLeague={this.props.extraTeamDataForLeague} />;
+        section = <LeagueOverviewSection currentRangeType={this.props.currentRangeType} currentLeague={this.props.currentLeague} leagueAction={this.props.leagueAction} actionMode={this.props.actionMode} rangeTypes={this.props.rangeTypes} changeCurrentRange={this.props.changeRangeType} />;
         break;
       case 'pickLeague':
         section = <PickLeagueSection fantasyLeagues={this.props.fantasyLeagues} pickLeague={this.props.pickLeague} />;
@@ -51,9 +51,10 @@ Dashboard.propTypes = {
   currentLeague: PropTypes.object,
   leagueAction: PropTypes.func,
   actionMode: PropTypes.string,
-  rangeType: PropTypes.array,
-  extraTeamDataForLeague: PropTypes.func,
-  fetchFantasyLeagues: PropTypes.func
+  rangeTypes: PropTypes.array,
+  changeCurrentRange: PropTypes.func,
+  fetchFantasyLeagues: PropTypes.func,
+  changeRangeType: PropTypes.func
 };
 
 function mapStateToProps(state) {
@@ -62,10 +63,11 @@ function mapStateToProps(state) {
     dashboardMode: state.dashboardMode,
     currentLeague: state.currentLeague,
     actionMode: state.actionMode,
-    rangeType: state.rangeType
+    rangeTypes: state.rangeTypes,
+    currentRangeType: state.currentRangeType
   };
 }
 
 // Read more about where to place `connect` here:
 // https://github.com/rackt/react-redux/issues/75#issuecomment-135436563
-export default connect(mapStateToProps, {pickLeague, leagueAction, extraTeamDataForLeague, fetchFantasyLeagues})(Dashboard);
+export default connect(mapStateToProps, {pickLeague, leagueAction, changeRangeType, fetchFantasyLeagues})(Dashboard);

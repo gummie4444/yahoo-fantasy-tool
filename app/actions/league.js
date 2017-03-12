@@ -1,6 +1,7 @@
 import { polyfill } from 'es6-promise';
 import request from 'axios';
 import { push } from 'react-router-redux';
+import leagueUtilService from '../services/leagueUtilService';
 
 import * as types from '../types';
 
@@ -83,7 +84,6 @@ export function pickCurrentLeagueSuccesfull(currentLeague) {
   };
 }
 
-
 function createInitDataForLeagueUrl(league, rangeType, statType) {
   return '/leagueInitData/' + league.league_key + '/' + statType + '/' + rangeType;
 }
@@ -100,6 +100,28 @@ export function newTeamDataRange(rangeType) {
     type: types.NEW_RANGE_TYPE,
     rangeType
   };
+}
+
+export function changeRangeTypeSuccess(rangeType) {
+  return {
+    type: types.CHANGE_RANGE_TYPE_SUCCESS,
+    rangeType
+  };
+}
+
+export function changeRangeType(rangeType, rangeTypesArray, league) {
+  return dispatch => {
+    // if we currently have the data
+    if (rangeTypesArray.indexOf(leagueUtilService.rangeEnum[rangeType]) > -1) {
+      // just change to new data
+      return dispatch(changeRangeTypeSuccess(rangeType))
+    }
+    // fetch data and then changes
+    return dispatch(extraTeamDataForLeague(league, rangeType)).then(res => {
+      dispatch(newTeamDataRange(rangeType));
+      return dispatch(changeRangeTypeSuccess(rangeType))
+    })
+  }
 }
 
 export function teamDataForLeague(league, rangeType = 'default', statType = 'default') {
@@ -136,7 +158,6 @@ export function extraTeamDataForLeague(league, rangeType = 'default', statType =
     // dispatch(startTeamDataForLeague());
     return makeLeagueRequest('get', {}, url)
       .then(res => {
-        dispatch(newTeamDataRange(rangeType));
         return dispatch(teamExtraDataForLeagueSuccesfull(res.data));
       })
       .catch(err => {

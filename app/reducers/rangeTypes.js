@@ -2,7 +2,7 @@ import * as types from '../types';
 import leagueUtilService from '../services/leagueUtilService';
 
 const initialState = [];
-const actionMode = (
+const rangeTypes = (
   state = initialState,
   action
 ) => {
@@ -20,4 +20,4 @@ const actionMode = (
   }
 };
 
-export default actionMode;
+export default rangeTypes;

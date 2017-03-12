@@ -39,7 +39,7 @@ class AnalyticsContainer extends React.Component {
           <AnalyticsMenu />
         </div>
         <div className={cx('Analytics-Separator')} />
-        <AnalyticsTableContainer teams={teams} />
+        <AnalyticsTableContainer currentRangeType={this.props.currentRangeType} teams={teams} />
       </div>
   );
   }
@@ -47,6 +47,7 @@ class AnalyticsContainer extends React.Component {
 
 AnalyticsContainer.propTypes = {
     currentLeague: PropTypes.object.isRequired,
+    currentRangeType: PropTypes.string.isRequired
 };
 
 export default AnalyticsContainer;

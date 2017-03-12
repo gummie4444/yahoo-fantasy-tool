@@ -56,7 +56,7 @@ class AnalyticsTableContainer extends React.Component {
   render() {
     return (
       <div className={cx('Analytics-TableContainer')}>
-        <AnalyticsTable teams={this.state.teams} onSortClick={this.handleSortClick} />
+        <AnalyticsTable currentRangeType={this.props.currentRangeType} teams={this.state.teams} onSortClick={this.handleSortClick} />
       </div>
   );
   }
@@ -64,6 +64,7 @@ class AnalyticsTableContainer extends React.Component {
 
 AnalyticsTableContainer.propTypes = {
     teams: PropTypes.array.isRequired,
+    currentRangeType: PropTypes.string.isRequired
 };
 
 export default AnalyticsTableContainer;

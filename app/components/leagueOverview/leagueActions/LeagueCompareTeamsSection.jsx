@@ -9,6 +9,7 @@ import CompareTeamsCompareStatsCategories from './CompareTeamsSection/CompareTea
 import CompareTeamsCompareStatsTeam from './CompareTeamsSection/CompareTeamsCompareStatsTeam';
 import CompareTeamsMainCategories from './CompareTeamsSection/CompareTeamsMainCategories';
 import CompareTeamsMainPlayer from './CompareTeamsSection/CompareTeamsMainPlayer';
+import RangePicker from './RangePicker'
 
 import leagueUtilService from '../../../services/leagueUtilService';
 import styles from '../../../css/components/leagueCompareTeams.css';
@@ -29,7 +30,6 @@ class LeagueCompareTeamsSection extends React.Component {
       teamLeftPoints: 0,
       teamRightPoints: 0,
       dropDownOptions: {},
-      currentRangeType: leagueUtilService.rangeEnum.default,
       loading: true
     };
   }
@@ -43,6 +43,10 @@ class LeagueCompareTeamsSection extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentLeague && nextProps.currentLeague.teams && !this.state.loadInitData) {
       this.loadInitData(nextProps.currentLeague.teams);
+    }
+
+    if(nextProps.currentRangeType !== this.props.currentRangeType){
+      this.updateData(this.state.teamLeftIndex, this.state.teamRightIndex);
     }
   }
 
@@ -59,7 +63,7 @@ class LeagueCompareTeamsSection extends React.Component {
      });
      this.setState({
        dropDownOptions,
-       currentRangeType: leagueUtilService.rangeEnum.default
+       loadInitData:true
      });
 
     this.updateData(teamLeftIndex, teamRightIndex, teams);
@@ -67,10 +71,10 @@ class LeagueCompareTeamsSection extends React.Component {
 
   updateData(teamLeftIndex, teamRightIndex, teams = false) {
     const currentTeams = teams !== false ? teams : this.props.currentLeague.teams;
-    const sumDataTeamLeft = leagueUtilService.sumAverageData(currentTeams[teamLeftIndex][this.state.currentRangeType]);
-    const sumDataTeamRight = leagueUtilService.sumAverageData(currentTeams[teamRightIndex][this.state.currentRangeType]);
+    const sumDataTeamLeft = leagueUtilService.sumAverageData(currentTeams[teamLeftIndex][this.props.currentRangeType]);
+    const sumDataTeamRight = leagueUtilService.sumAverageData(currentTeams[teamRightIndex][this.props.currentRangeType]);
 
-    console.log('rangeType',this.state.currentRangeType);
+    console.log('rangeType',this.props.currentRangeType);
     let teamLeftPoints = 0;
     let teamRightPoints = 0;
      _(sumDataTeamLeft).each((value, key) => {
@@ -94,7 +98,6 @@ class LeagueCompareTeamsSection extends React.Component {
       teamRightIndex,
       sumDataTeamLeft,
       sumDataTeamRight,
-      loadInitData: true,
       teamLeftPoints,
       teamRightPoints,
       loading: false
@@ -108,31 +111,6 @@ class LeagueCompareTeamsSection extends React.Component {
     this.updateData(item.value, this.state.teamRightIndex);
   }
 
-  loadNewRangeData(type) {
-    console.log('type');
-    if (this.state.currentRangeType === leagueUtilService.rangeEnum[type]) {
-      return;
-    }
-
-    if (this.props.rangeType.indexOf(leagueUtilService.rangeEnum[type]) > -1) {
-      // just change to new data
-      this.setState({
-        currentRangeType: leagueUtilService.rangeEnum[type]
-      });
-      this.updateData(this.state.teamLeftIndex, this.state.teamRightIndex);
-      return;
-    }
-    this.setState({
-        loading: true
-    });
-    this.props.extraTeamDataForLeague(this.props.currentLeague, type).then(() => {
-      console.log('dispatchAfter')
-      this.setState({
-        currentRangeType: leagueUtilService.rangeEnum[type]
-      });
-      this.updateData(this.state.teamLeftIndex, this.state.teamRightIndex);
-    });
-  }
   render() {
     // todo move to components
     const currentLeague = this.props.currentLeague;
@@ -147,17 +125,7 @@ class LeagueCompareTeamsSection extends React.Component {
         {this.state.loading && <div className={cx('compareTeamsLoading')}> WE ARE LOADING SOME DATA </div>}
         {currentLeague && currentLeague.teams && this.state.loadInitData &&
         <div>
-          <div className={cx('compareTeamsButtons')}>
-          {types.map(type => {
-            return (
-              <div className={cx('compareTeamsButtonsButton')} data-mode={this.state.currentRangeType === leagueUtilService.rangeEnum[type]} onClick={this.loadNewRangeData.bind(this, type)}>
-                <span>
-                  {type}
-                </span>
-              </div>
-            );
-          })}
-          </div>
+          <RangePicker currentLeague={this.props.currentLeague} currentRangeType={this.props.currentRangeType} changeCurrentRange={this.props.changeCurrentRange} rangeTypes={this.props.rangeTypes} />
           <div className={cx('compareTeamsHeaderWraper')}>
             <CompareTeamsHeaderTeam customClassName={cx('compareTeamsHeaderLeftTeam')} options={this.state.dropDownOptions} change={this.onSelectLeftDropDown.bind(this)} initValue={this.state.dropDownOptions[this.state.teamLeftIndex]} />
             <CompareTeamsHeaderScore customClassName={cx('compareTeamsHeaderScore')} leftPoints={this.state.teamLeftPoints} rightPoints={this.state.teamRightPoints} />
@@ -177,7 +145,7 @@ class LeagueCompareTeamsSection extends React.Component {
               <table>
                 <tbody>
                   <CompareTeamsMainCategories customClassName={cx('compareTeamsMainTeamStatsCategories')} />
-                  {currentLeague.teams[this.state.teamLeftIndex][this.state.currentRangeType].map(player => {
+                  {currentLeague.teams[this.state.teamLeftIndex][this.props.currentRangeType].map(player => {
                     return (<CompareTeamsMainPlayer player={player} />);
                   })}
                 </tbody>
@@ -188,7 +156,7 @@ class LeagueCompareTeamsSection extends React.Component {
               <table>
                 <tbody>
                   <CompareTeamsMainCategories customClassName={cx('compareTeamsMainTeamStatsCategories')} />
-                  {currentLeague.teams[this.state.teamRightIndex][this.state.currentRangeType].map(player => {
+                  {currentLeague.teams[this.state.teamRightIndex][this.props.currentRangeType].map(player => {
                     return (<CompareTeamsMainPlayer player={player} />);
                   })}
                 </tbody>
@@ -204,8 +172,9 @@ class LeagueCompareTeamsSection extends React.Component {
 
 LeagueCompareTeamsSection.propTypes = {
   currentLeague: PropTypes.object.isRequired,
-  rangeType: PropTypes.array.isRequired,
-  extraTeamDataForLeague: PropTypes.func.isRequired
+  currentRangeType: PropTypes.string.isRequired,
+  rangeTypes: PropTypes.array.isRequired,
+  changeCurrentRange: PropTypes.func.isRequired
 };
 
 export default LeagueCompareTeamsSection;

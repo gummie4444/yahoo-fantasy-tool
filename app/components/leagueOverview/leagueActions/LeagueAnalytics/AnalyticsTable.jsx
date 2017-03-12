@@ -10,7 +10,7 @@ import styles from '../../../../css/components/analytics.css';
 
 const cx = classNames.bind(styles);
 
-const AnalyticsTable = ({teams, onSortClick}) => {
+const AnalyticsTable = ({teams, onSortClick, currentRangeType}) => {
   return (
     teams.length > 0 ?
       <div className={cx('Analytics-Table')}>
@@ -27,7 +27,7 @@ const AnalyticsTable = ({teams, onSortClick}) => {
           <div className={cx('Analytics-TableHeaderStat')} onClick={onSortClick}>TO</div>
         </div>
         {teams.map((team, index) => {
-          const teamAvg = leagueUtilService.sumAverageData(teams[index].data_AS_AS_2016);
+          const teamAvg = leagueUtilService.sumAverageData(teams[index][currentRangeType]);
           return (
             <AnalyticsTableItem key={team.team_id} team={team} teamAvg={teamAvg} />
           );
@@ -41,6 +41,7 @@ const AnalyticsTable = ({teams, onSortClick}) => {
 AnalyticsTable.propTypes = {
     teams: PropTypes.array.isRequired,
     onSortClick: PropTypes.func.isRequired,
+    currentRangeType: PropTypes.string.isRequired
 };
 
 export default AnalyticsTable;
