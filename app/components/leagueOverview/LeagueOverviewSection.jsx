@@ -20,7 +20,7 @@ const LeagueOverviewSection = ({currentLeague, leagueAction, actionMode, rangeTy
       action = <LeagueCompareTeamsSection currentLeague={currentLeague} rangeTypes={rangeTypes} changeCurrentRange={changeCurrentRange} currentRangeType={currentRangeType} />;
       break;
     case 'tableAnalytics':
-      action = <AnalyticsContainer currentLeague={currentLeague} currentRangeType={currentRangeType} />;
+      action = <AnalyticsContainer currentLeague={currentLeague} rangeTypes={rangeTypes} changeCurrentRange={changeCurrentRange} currentRangeType={currentRangeType} />;
       break;
     case '':
       action = <LeagueOverviewActions leagueAction={leagueAction} currentLeague={currentLeague} />;

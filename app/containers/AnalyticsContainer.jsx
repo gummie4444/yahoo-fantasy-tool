@@ -36,7 +36,7 @@ class AnalyticsContainer extends React.Component {
           <div className={cx('Analytics-HeaderOverlay')}>
             A N A L Y T I C S
           </div>
-          <AnalyticsMenu />
+          <AnalyticsMenu currentRangeType={this.props.currentRangeType} currentLeague={this.props.currentLeague} rangeTypes={this.props.rangeTypes} changeCurrentRange={this.props.changeCurrentRange} />
         </div>
         <div className={cx('Analytics-Separator')} />
         <AnalyticsTableContainer currentRangeType={this.props.currentRangeType} teams={teams} />
@@ -46,8 +46,10 @@ class AnalyticsContainer extends React.Component {
 }
 
 AnalyticsContainer.propTypes = {
-    currentLeague: PropTypes.object.isRequired,
-    currentRangeType: PropTypes.string.isRequired
+  currentLeague: PropTypes.object.isRequired,
+  currentRangeType: PropTypes.string.isRequired,
+  rangeTypes: PropTypes.array.isRequired,
+  changeCurrentRange: PropTypes.func.isRequired
 };
 
 export default AnalyticsContainer;
