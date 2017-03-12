@@ -8,15 +8,15 @@ import styles from '../../../../css/components/leagueOverview.css';
 const cx = classNames.bind(styles);
 
 const CompareTeamsMainCategories = ({customClassName}) => {
-  const pre = ['position', 'name', 'fgm', 'fga', 'fg%', 'ftm', 'fta', 'ft%', '3pm', 'pts', 'reb', 'ast', 'stl', 'blo', 'to'];
+  const pre = ['name', 'fgm', 'fga', 'fg%', 'ftm', 'fta', 'ft%', '3pm', 'pts', 'reb', 'ast', 'stl', 'blo', 'to'];
 
   return (
     <tr className={customClassName}>
       {pre.map(item => {
         return (
-          <td key={item}>
+          <th key={item}>
             {item}
-          </td>
+          </th>
         );
       })}
     </tr>

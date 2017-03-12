@@ -14,9 +14,9 @@ const CompareTeamsCompareStatsCategories = ({customClassName}) => {
     <tr className={customClassName}>
       {preCat.map(item => {
         return (
-          <td key={item}>
+          <th key={item}>
             {item}
-          </td>
+          </th>
         );
       })
       }
