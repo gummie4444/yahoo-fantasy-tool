@@ -1,5 +1,6 @@
 @import '../common/colors';
 @import '../common/typography';
+@import '../common/boxShadow';
 
 .navigation {
   display: flex;
@@ -26,4 +27,26 @@
 
 .active {
   
+}
+
+.BackButtonWrapper{
+    position: absolute;
+    top: 0;
+    height: 6vh;
+    display: flex;
+    align-items: center;
+    left: 10px;
+}
+.BackButton{
+  height:25px;
+  cursor:pointer;
+  @apply --boxShadowSVG;
+}
+
+.BackButton:hover{
+    @apply --boxShadowHoverSVG;
+}
+
+.BackButton:active{
+    @apply --boxShadowActiveSVG;
 }

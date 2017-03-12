@@ -18,24 +18,6 @@
     @apply --boxShadow;
 }
 
-
-.leagueOverviewBackButton{
-  height:50px;
-  cursor:pointer;
-  @apply --boxShadowSVG;
-
-}
-
-.leagueOverviewBackButton:hover{
-    @apply --boxShadowHoverSVG;
-}
-
-.leagueOverviewBackButton:active{
-    @apply --boxShadowActiveSVG;
-}
-
-
-
 .leagueOverviewItem:hover{
   @apply --boxShadowHover;
 }
